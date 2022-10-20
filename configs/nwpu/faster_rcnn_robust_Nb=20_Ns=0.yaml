@@ -1,0 +1,321 @@
+CORRECTION:
+  AUG:
+  - vflip-0.5
+  - hflip-0.5
+  - brightness-0.5-1.5
+  - contrast-0.5-2.0
+  - saturation-0.0-4.0
+  BOXES:
+    DISTANCE_LIMIT: 0.35
+    LOWER_THRESH: 0.05
+    SOFTMAX_TEMP: 0.2
+    TYPE: k_boxes
+  DETECTIONS_PER_IMAGE_TRAIN: 256
+  LABELS:
+    MINING_THRESH: null
+    TYPE: null
+  NMS_THRESH_TRAIN: 1.0
+  SCORE_THRESH_TRAIN: 0.001
+  WARMUP: 0
+CUDNN_BENCHMARK: false
+DATALOADER:
+  ASPECT_RATIO_GROUPING: true
+  FILTER_EMPTY_ANNOTATIONS: false
+  NUM_WORKERS: 8
+  REPEAT_THRESHOLD: 0.0
+  SAMPLER_TRAIN: TrainingSampler
+DATASETS:
+  NOISE:
+    DROP_LABELS:
+      P: 0.0
+    UNIFORM_BBOX_NOISE:
+      P: 0.2
+  PRECOMPUTED_PROPOSAL_TOPK_TEST: 1000
+  PRECOMPUTED_PROPOSAL_TOPK_TRAIN: 2000
+  PROPOSAL_FILES_TEST: []
+  PROPOSAL_FILES_TRAIN: []
+  TEST:
+  - nwpu_test
+  TRAIN:
+  - noisy_nwpu_train
+  VAL:
+  - nwpu_val
+GLOBAL:
+  HACK: 1.0
+INPUT:
+  CROP:
+    ENABLED: false
+    SIZE:
+    - 0.9
+    - 0.9
+    TYPE: relative_range
+  FORMAT: BGR
+  MASK_FORMAT: polygon
+  MAX_SIZE_TEST: 1333
+  MAX_SIZE_TRAIN: 1333
+  MIN_SIZE_TEST: 800
+  MIN_SIZE_TRAIN:
+  - 480
+  - 512
+  - 544
+  - 576
+  - 608
+  - 640
+  - 672
+  - 704
+  - 736
+  - 768
+  - 800
+  MIN_SIZE_TRAIN_SAMPLING: choice
+  RANDOM_FLIP: horizontal&vertical
+MODEL:
+  ANCHOR_GENERATOR:
+    ANGLES:
+    - - -90
+      - 0
+      - 90
+    ASPECT_RATIOS:
+    - - 0.5
+      - 1.0
+      - 2.0
+    NAME: DefaultAnchorGenerator
+    OFFSET: 0.0
+    SIZES:
+    - - 32
+    - - 64
+    - - 128
+    - - 256
+    - - 512
+  BACKBONE:
+    ANTI_ALIAS: null
+    FREEZE_AT: 2
+    NAME: build_resnet_fpn_backbone
+  DEVICE: cuda
+  FCOS:
+    BOX_QUALITY: null
+    CENTER_SAMPLE: null
+    FPN_STRIDES: null
+    INFERENCE_TH_TEST: null
+    INFERENCE_TH_TRAIN: null
+    IN_FEATURES: null
+    LOC_LOSS_TYPE: null
+    LOSS_ALPHA: null
+    LOSS_GAMMA: null
+    LOSS_NORMALIZER_CLS: null
+    LOSS_WEIGHT_CLS: null
+    NMS_TH: null
+    NORM: null
+    NUM_BOX_CONVS: null
+    NUM_CLASSES: 10
+    NUM_CLS_CONVS: null
+    NUM_SHARE_CONVS: null
+    POST_NMS_TOPK_TEST: null
+    POST_NMS_TOPK_TRAIN: null
+    POS_RADIUS: null
+    PRE_NMS_TOPK_TEST: null
+    PRE_NMS_TOPK_TRAIN: null
+    PRIOR_PROB: null
+    SIZES_OF_INTEREST: null
+    THRESH_WITH_CTR: null
+    TOP_LEVELS: null
+    USE_DEFORMABLE: null
+    USE_RELU: null
+    USE_SCALE: null
+    YIELD_BOX_FEATURES: null
+    YIELD_PROPOSAL: null
+  FPN:
+    FUSE_TYPE: sum
+    IN_FEATURES:
+    - res2
+    - res3
+    - res4
+    - res5
+    NORM: ''
+    OUT_CHANNELS: 256
+  KEYPOINT_ON: false
+  LOAD_PROPOSALS: false
+  MASK_ON: false
+  META_ARCHITECTURE: CustomFasterRCNN
+  MOBILENET: null
+  PIXEL_MEAN:
+  - 103.53
+  - 116.28
+  - 123.675
+  PIXEL_STD:
+  - 1.0
+  - 1.0
+  - 1.0
+  PROPOSAL_GENERATOR:
+    MIN_SIZE: 0
+    NAME: RPN
+  RESNETS:
+    DEFORM_INTERVAL: null
+    DEFORM_MODULATED: false
+    DEFORM_NUM_GROUPS: 1
+    DEFORM_ON_PER_STAGE:
+    - false
+    - false
+    - false
+    - false
+    DEPTH: 50
+    NORM: FrozenBN
+    NUM_GROUPS: 1
+    OUT_FEATURES:
+    - res2
+    - res3
+    - res4
+    - res5
+    RES2_OUT_CHANNELS: 256
+    RES5_DILATION: 1
+    STEM_OUT_CHANNELS: 64
+    STRIDE_IN_1X1: true
+    WIDTH_PER_GROUP: 64
+  RETINANET:
+    BBOX_REG_LOSS_TYPE: null
+    BBOX_REG_WEIGHTS: null
+    FOCAL_LOSS_ALPHA: null
+    FOCAL_LOSS_GAMMA: null
+    IN_FEATURES: null
+    IOU_LABELS: null
+    IOU_THRESHOLDS: null
+    NMS_THRESH_TEST: null
+    NORM: null
+    NUM_CLASSES: 10
+    NUM_CONVS: null
+    PRIOR_PROB: null
+    SCORE_THRESH_TEST: null
+    SMOOTH_L1_LOSS_BETA: null
+    TOPK_CANDIDATES_TEST: null
+  ROI_BOX_HEAD:
+    BBOX_REG_LOSS_TYPE: smooth_l1
+    BBOX_REG_LOSS_WEIGHT: 1.0
+    BBOX_REG_WEIGHTS:
+    - 10.0
+    - 10.0
+    - 5.0
+    - 5.0
+    CLS_AGNOSTIC_BBOX_REG: false
+    CONV_DIM: 256
+    FC_DIM: 1024
+    NAME: FastRCNNConvFCHead
+    NORM: ''
+    NUM_CONV: 0
+    NUM_FC: 2
+    POOLER_RESOLUTION: 7
+    POOLER_SAMPLING_RATIO: 0
+    POOLER_TYPE: ROIAlignV2
+    SMOOTH_L1_BETA: 0.0
+    TRAIN_ON_PRED_BOXES: false
+  ROI_HEADS:
+    BATCH_SIZE_PER_IMAGE: 512
+    DETECTIONS_PER_IMAGE_TRAIN: null
+    IN_FEATURES:
+    - p2
+    - p3
+    - p4
+    - p5
+    IOU_LABELS:
+    - 0
+    - 1
+    IOU_THRESHOLDS:
+    - 0.5
+    NAME: StandardROIHeads
+    NMS_THRESH_TEST: 0.5
+    NMS_THRESH_TRAIN: null
+    NUM_CLASSES: 10
+    POSITIVE_FRACTION: 0.25
+    PROPOSAL_APPEND_GT: true
+    SCORE_THRESH_TEST: 0.05
+    SCORE_THRESH_TRAIN: null
+  RPN:
+    BATCH_SIZE_PER_IMAGE: 256
+    BBOX_REG_LOSS_TYPE: smooth_l1
+    BBOX_REG_LOSS_WEIGHT: 1.0
+    BBOX_REG_WEIGHTS:
+    - 1.0
+    - 1.0
+    - 1.0
+    - 1.0
+    BOUNDARY_THRESH: -1
+    CONV_DIMS:
+    - -1
+    HEAD_NAME: StandardRPNHead
+    IN_FEATURES:
+    - p2
+    - p3
+    - p4
+    - p5
+    - p6
+    IOU_LABELS:
+    - 0
+    - -1
+    - 1
+    IOU_THRESHOLDS:
+    - 0.3
+    - 0.7
+    LOSS_WEIGHT: 1.0
+    NMS_THRESH: 0.7
+    POSITIVE_FRACTION: 0.5
+    POST_NMS_TOPK_TEST: 1000
+    POST_NMS_TOPK_TRAIN: 1000
+    PRE_NMS_TOPK_TEST: 1000
+    PRE_NMS_TOPK_TRAIN: 2000
+    SMOOTH_L1_BETA: 0.0
+  EMA_TEACHER:
+    KEEP_RATE: 0.99
+  WEIGHTS: ./runs/nwpu_Nb=20_Ns=0_faster_rcnn_standard/final_model.pt
+OUTPUT_DIR: ./runs/nwpu_Nb=20_Ns=0_faster_rcnn_robust
+SEED: -1
+SOLVER:
+  AMP:
+    ENABLED: false
+  BACKBONE_MULTIPLIER: null
+  BASE_LR: 0.02
+  BIAS_LR_FACTOR: 1.0
+  CHECKPOINTS: []
+  CLIP_GRADIENTS:
+    CLIP_TYPE: value
+    CLIP_VALUE: 1.0
+    ENABLED: false
+    NORM_TYPE: 2.0
+  GAMMA: 0.1
+  IMS_PER_BATCH: 8
+  LR_SCHEDULER_NAME: WarmupMultiStepLR
+  MAX_ITER: 8000
+  MOMENTUM: 0.9
+  NESTEROV: false
+  OPTIMIZER: null
+  PATIENCE: 16
+  REFERENCE_WORLD_SIZE: 0
+  STEPS: []
+  USE_CHECKPOINT: null
+  WARMUP_FACTOR: 0.001
+  WARMUP_ITERS: 100
+  WARMUP_METHOD: linear
+  WEIGHT_DECAY: 0.0001
+  WEIGHT_DECAY_BIAS: 0.0001
+  WEIGHT_DECAY_NORM: 0.0
+TEST:
+  AUG:
+    ENABLED: false
+    FLIP: false
+    MAX_SIZE: 4000
+    MIN_SIZES:
+    - 400
+    - 500
+    - 600
+    - 700
+    - 800
+    - 900
+    - 1000
+    - 1100
+    - 1200
+  DETECTIONS_PER_IMAGE: 100
+  EVAL_PERIOD: 500
+  EXPECTED_RESULTS: []
+  KEYPOINT_OKS_SIGMAS: []
+  PRECISE_BN:
+    ENABLED: false
+    NUM_ITER: 200
+VERSION: 2
+VIS_PERIOD: 1000

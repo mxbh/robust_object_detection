@@ -1,0 +1,6 @@
+*.pyc
+*.pt
+*.pth
+.vscode/
+runs/
+pretrained_models/
