@@ -5,7 +5,7 @@ and Sparse Geo-Annotations".
 
 > Recently, the availability of remote sensing imagery from aerial vehicles and satellites constantly improved. For an automated interpretation of such data, deep-learning-based object detectors achieve state-of-the-art performance. However, established object detectors require complete, precise, and correct bounding box annotations for training. In order to create the necessary training annotations for object detectors, imagery can be georeferenced and combined with data from other sources, such as points of interest localized by GPS sensors. Unfortunately, this combination often leads to poor object localization and missing annotations. Therefore, training object detectors with such data often results in insufficient detection performance. In this paper, we present a novel approach for training object detectors with extremely noisy and incomplete annotations. Our method is based on a teacher-student learning framework and a correction module accounting for imprecise and missing annotations. Thus, our method is easy to use and can be combined with arbitrary object detectors. We demonstrate that our approach improves standard detectors by 37.1% AP_50 on a noisy real-world remote-sensing dataset. Furthermore, our method achieves great performance gains on two datasets with synthetic noise. Code is available at https://github.com/mxbh/robust_object_detection.
 
-An extended version of the paper with more detailed explanations can be found here:TODO.
+An extended version of the paper with more detailed explanations can be found [here](http://arxiv.org/abs/2210.12989).
 
 ## Usage 
 1. Download the desired datasets and place them into `./datasets`.
@@ -61,4 +61,11 @@ python test.py --run=./runs/voc_Nb=40_Ns=0_faster_rcnn_robust
 
 ## Citation
 If you use this repository in your research, please cite
-TODO.
+```
+@article{bernhard2022robust_obj_det,
+  title={Robust Object Detection in Remote Sensing Imagery with Noisy and Sparse Geo-Annotations (Full Version)},
+  author={Bernhard, Maximilian and Schubert, Matthias},
+  journal={arXiv preprint arXiv:2210.12989},
+  year={2022}
+}
+```
